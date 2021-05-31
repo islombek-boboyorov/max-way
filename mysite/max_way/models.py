@@ -25,7 +25,7 @@ class Product(models.Model):
 
 class Order(models.Model):
     products = models.ManyToManyField(Product)
-    status = models.IntegerField(blank=False, null=False, default=0)
+    status = models.IntegerField(blank=False, null=False, default=1)
     total_price = models.IntegerField(blank=False, null=False, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -34,7 +34,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=128, blank=False, null=False)
     last_name = models.CharField(max_length=128, blank=False, null=False)
     phone = models.CharField(max_length=100, blank=False, null=False)
-    price_type = models.IntegerField(blank=False, null=False, default=0)
+    price_type = models.PositiveIntegerField(blank=False, null=False, default=0)
     order = models.ForeignKey(Order, blank=False, null=True, on_delete=models.SET_NULL)
     address = models.TextField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)

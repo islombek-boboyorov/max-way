@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 {% load static %}
 <html lang="en">
   <head>
@@ -8,10 +8,10 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'fronted/css/style.css' %}">
   </head>
-  <body>
-    <div class="mobMenu">
-      <div class="container">
-        <div class="menu">
+  <body> 
+    <div class="mobMenu"> 
+      <div class="container"> 
+        <div class="menu"> 
           <div class="logo"><a href="index.html">
                <svg width="52" height="55" viewBox="0 0 52 55" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M31.8607 53.4586C31.8607 53.3384 31.9744 53.2477 32.0913 53.2477H32.2117L32.3453 52.7C32.3754 52.5959 32.4622 52.543 32.5759 52.543C32.6795 52.553 32.7798 52.6396 32.7763 52.7462C32.7763 52.753 32.7763 52.7731 32.7696 52.7899L32.6593 53.2477H32.8131L32.9468 52.7C32.9768 52.5959 33.0637 52.543 33.1774 52.543C33.2909 52.553 33.3846 52.6429 33.3778 52.753C33.3778 52.763 33.3746 52.7765 33.3711 52.7899L33.2608 53.2477C33.3746 53.2511 33.4849 53.3418 33.4849 53.4586C33.4849 53.5787 33.3846 53.6719 33.2542 53.6719H33.1607L33.1272 53.7996H33.154C33.2709 53.7996 33.3846 53.8928 33.3846 54.013C33.3846 54.1331 33.2843 54.2272 33.154 54.2272H33.027L32.8933 54.7816C32.8632 54.8849 32.7763 54.9386 32.6627 54.9386C32.5491 54.9319 32.4588 54.842 32.4588 54.7312L32.4656 54.7018L32.5792 54.2272H32.4255L32.2917 54.7816C32.2616 54.8849 32.1748 54.9386 32.0612 54.9386C31.9542 54.9286 31.8574 54.842 31.8574 54.7312L31.864 54.7018L31.9776 54.2272C31.8541 54.2204 31.7605 54.1297 31.7605 54.013C31.7605 53.8928 31.8741 53.7996 31.991 53.7996H32.0779L32.1113 53.6719H32.0913C31.9609 53.6719 31.8607 53.5787 31.8607 53.4586ZM32.7128 53.6719H32.5592L32.5257 53.7996H32.6795L32.7128 53.6719Z" fill="#800A7A"/>
@@ -33,7 +33,7 @@
 </svg></a></div>
           <button class="main"> <span></span></button>
         </div>
-        <div class="mobMenu__content">
+        <div class="mobMenu__content"> 
           <div class="mobMenu__content--img"> <img src="{% static 'fronted/img/bitmap.png' %}" alt=""></div>
           <div class="mobMenu__content--decs">
             <div class="mobMenu__content--title">Siz izlagan mazzali ta’mlar</div>
@@ -46,7 +46,7 @@
       <div class="main__menu">
         <ul>
           <li class="list"><a href="tel:998712005400">(+99871) 200-54-00</a></li>
-          <div class="net__icon"> <a href="index.html">
+          <div class="net__icon"> <a href="{% url 'index' %}">
                <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M20 8C20 8 20 4.28 19.543 2.498C19.292 1.516 18.55 0.742 17.605 0.476C15.896 0 10 0 10 0C10 0 4.107 0 2.395 0.476C1.454 0.738 0.711 1.513 0.457 2.498C0 4.28 0 8 0 8C0 8 0 11.72 0.457 13.502C0.708 14.484 1.45 15.258 2.395 15.524C4.107 16 10 16 10 16C10 16 15.896 16 17.605 15.524C18.546 15.262 19.289 14.487 19.543 13.502C20 11.72 20 8 20 8ZM14 8L8 11.5V4.5L14 8Z" fill="#222124"/>
 </svg></a><a href="#">
@@ -66,9 +66,9 @@
       </div>
     </div>
     <div class="header">
-      <div class="container">
-        <div class="menu">
-          <div class="logo"><a href="#">
+      <div class="container"> 
+        <div class="menu"> 
+          <div class="logo"><a href="{% url 'index' %}">
                <svg width="52" height="55" viewBox="0 0 52 55" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M31.8607 53.4586C31.8607 53.3384 31.9744 53.2477 32.0913 53.2477H32.2117L32.3453 52.7C32.3754 52.5959 32.4622 52.543 32.5759 52.543C32.6795 52.553 32.7798 52.6396 32.7763 52.7462C32.7763 52.753 32.7763 52.7731 32.7696 52.7899L32.6593 53.2477H32.8131L32.9468 52.7C32.9768 52.5959 33.0637 52.543 33.1774 52.543C33.2909 52.553 33.3846 52.6429 33.3778 52.753C33.3778 52.763 33.3746 52.7765 33.3711 52.7899L33.2608 53.2477C33.3746 53.2511 33.4849 53.3418 33.4849 53.4586C33.4849 53.5787 33.3846 53.6719 33.2542 53.6719H33.1607L33.1272 53.7996H33.154C33.2709 53.7996 33.3846 53.8928 33.3846 54.013C33.3846 54.1331 33.2843 54.2272 33.154 54.2272H33.027L32.8933 54.7816C32.8632 54.8849 32.7763 54.9386 32.6627 54.9386C32.5491 54.9319 32.4588 54.842 32.4588 54.7312L32.4656 54.7018L32.5792 54.2272H32.4255L32.2917 54.7816C32.2616 54.8849 32.1748 54.9386 32.0612 54.9386C31.9542 54.9286 31.8574 54.842 31.8574 54.7312L31.864 54.7018L31.9776 54.2272C31.8541 54.2204 31.7605 54.1297 31.7605 54.013C31.7605 53.8928 31.8741 53.7996 31.991 53.7996H32.0779L32.1113 53.6719H32.0913C31.9609 53.6719 31.8607 53.5787 31.8607 53.4586ZM32.7128 53.6719H32.5592L32.5257 53.7996H32.6795L32.7128 53.6719Z" fill="#800A7A"/>
 <path d="M34.2733 53.9498H34.905C35.0352 53.9498 35.1355 53.8557 35.1355 53.7356C35.1355 53.6155 35.0219 53.5247 34.905 53.5247H34.2733V52.9838H34.9683C35.0953 52.9838 35.2023 52.8973 35.2023 52.7763C35.2023 52.6595 35.0953 52.5596 34.9683 52.5596H34.0628C33.9157 52.5596 33.8054 52.6797 33.8054 52.7965V54.7352C33.8054 54.8486 33.9091 54.9485 34.0394 54.9485C34.1665 54.9485 34.2733 54.8486 34.2733 54.7352V53.9498Z" fill="#800A7A"/>
@@ -89,7 +89,7 @@
 </svg></a></div>
           <div class="menu__ul">
             <div class="phone--shop">
-              <div class="phone">
+              <div class="phone"> 
                 <div class="phone--icon">
                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.318 11.634C8.66952 10.6957 7.30434 9.33048 6.366 7.682L7.604 6.798C8.016 6.50378 8.14311 5.94807 7.9 5.504C7.12708 4.08968 6.66222 2.52779 6.536 0.921C6.49479 0.400934 6.0607 -6.53648e-05 5.539 2.36236e-08H1.077C0.564126 -0.000110528 0.134313 0.387801 0.082 0.898C0.027 1.428 0 1.962 0 2.5C0 11.06 6.94 18 15.5 18C16.038 18 16.572 17.973 17.102 17.918C17.6122 17.8657 18.0001 17.4359 18 16.923V12.461C18.0001 11.9393 17.5991 11.5052 17.079 11.464C15.4722 11.3378 13.9103 10.8729 12.496 10.1C12.0519 9.85689 11.4962 9.984 11.202 10.396L10.318 11.634ZM5.744 5.668L3.844 7.025C4.05628 7.57134 4.30691 8.10199 4.594 8.613L4.627 8.671C5.74328 10.6324 7.36758 12.2567 9.329 13.373L9.387 13.406C9.89801 13.6931 10.4287 13.9437 10.975 14.156L12.332 12.256C13.4959 12.7952 14.7312 13.1646 16 13.353V15.99C15.834 15.997 15.667 16 15.5 16C8.044 16 2 9.956 2.001 2.5C2.001 2.333 2.004 2.166 2.01 2H4.647C4.83535 3.26884 5.20478 4.50409 5.744 5.668Z" fill="#F1B301"/>
 </svg>
@@ -99,20 +99,30 @@
               <div class="shop">
                 <button class="shop--icon" onclick="modal()">
                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 7V5C4 2.23858 6.23858 0 9 0C11.7614 0 14 2.23858 14 5V7H17C17.5523 7 18 7.44772 18 8V20C18 20.5523 17.5523 21 17 21H1C0.447715 21 0 20.5523 0 20V8C0 7.44772 0.447715 7 1 7H4ZM4 9H2V19H16V9H14V11H12V9H6V11H4V9ZM12 5V7H6V5C6 3.34315 7.34315 2 9 2C10.6569 2 12 3.34315 12 5Z" fill="#F1B301"/></svg></button>
-                <div class="shop--text">  <a href="#" onclick="modal()"> Korzina<br><span class="shopSpan">23,000 <span>UZS</span></span></a></div>
+                <div class="shop--text">  <a href="#" onclick="modal()"> Korzina<br><span class="shopSpan">5000<span>UZS</span></span></a></div>
               </div>
             </div>
           </div>
         </div>
-    <div class="account">
+
+
+
+        <div class="account">
+
+
+          <form method="post">
+          {% csrf_token %}
         <div class="phone">
             <p> ВЕРИФИКАЦИЯ ТЕЛЕФОНА*</p><br>
-                <input class="input" type="text" placeholder="Ваш номер">
+            {{form.phone}}
+<!--                <input class="input" name="phone_number" type="text" placeholder="Ваш номер">-->
         </div>
         <div class="contact">
             <p>КОНТАКТНАЯ ИНФОРМАЦИЯ</p><br>
-            <input class="input" type="text" placeholder="Имя*">
-            <input class="input" type="text" placeholder="Фамилия*">
+            {{form.first_name}}
+            {{form.last_name}}
+<!--            <input class="input" name="first_name" type="text" placeholder="Имя*">-->
+<!--            <input class="input" name="last_name" type="text" placeholder="Фамилия*">-->
         </div>
         <div class="all">
             <div class="card">
@@ -120,7 +130,7 @@
                 <div class="sum">
                     <h2> Наличный расчет </h2>
                     <h4>Оплата принимается в узбекских сумах в наших магазинах или курьеру при получении товара.</h4>
-                    <input class="radio" id="1" value="Наличный" type="checkbox">
+                    <input class="radio"  id="1" value="Наличный" type="checkbox">
                 </div>
             </div>
             <div class="card">
@@ -128,49 +138,21 @@
                 <div class="sum">
                     <h2>  Оплата по терминалу  </h2>
                     <h4>Оплата принимается через банковские карты UzCard.</h4>
-                    <input class="radio" id="1" value="терминал" type="checkbox">
+                    <input class="radio"  id="2" value="терминал" type="checkbox">
                 </div>
             </div>
         </div>
-
         <div class="div">
             <p>«Адрес, Ориентир»*</p>
-            <textarea class="text" name="" id="" cols="30" rows="10"></textarea>
+            {{form.address}}
+<!--            <textarea class="text" name="address" id="" cols="30" rows="10"></textarea>-->
+        </div>
+        <div class="button">
+            <a href="#">Отправить</a>
+        </div>
+        </form>
+
 
         </div>
     </div>
-    <div class="gamburger">
-        <div class="modal">
-            <div class="title">Заказы</div>
-            <button class="close" onclick="modal()"><span></span></button>
-            <div class="row">
-              <div class="col-12">
-                <div class="item">
-                  <div class="box">
-                    <div class="box__img"> <img class="img" src="{% static 'fronted/img/burger.png' %}" alt=""></div>
-                    <div class="box__content">
-                      <div class="box__title"> Double Burger</div>
-                      <div class="box__text"> Горячая закуска с митболами из говядины, томатами, моцареллой и соусом чипотле</div>
-                      <div class="box__const">
-                        <div class="box__cost"> 23,000 UZS</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="total">
-              <div class="title">Итого:</div>
-              <div class="cost">23,500 <span>UZS</span></div>
-            </div>
-            <div class="buttons">
-              <button class="clear"><a href="index.html"> Очистить</a></button>
-              <button class="order"><a href="order.html">Заказать</a></button>
-            </div>
-          </div>
-          <div class="button">
-            <a href="#">Отправить</a>
-          </div>
     </div>
-  </div>
-</div>

@@ -100,7 +100,7 @@
               <div class="shop">
                 <button class="shop--icon" onclick="modal()">
                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 7V5C4 2.23858 6.23858 0 9 0C11.7614 0 14 2.23858 14 5V7H17C17.5523 7 18 7.44772 18 8V20C18 20.5523 17.5523 21 17 21H1C0.447715 21 0 20.5523 0 20V8C0 7.44772 0.447715 7 1 7H4ZM4 9H2V19H16V9H14V11H12V9H6V11H4V9ZM12 5V7H6V5C6 3.34315 7.34315 2 9 2C10.6569 2 12 3.34315 12 5Z" fill="#F1B301"/></svg></button>
-                <div class="shop--text">  <a href="#" onclick="modal()"> Korzina<br><span class="shopSpan">23,000 <span>UZS</span></span></a></div>
+                <div class="shop--text">  <a href="#" onclick="modal()"> Korzina<br><span class="shopSpan" id="index_price">0 <span>UZS</span></span></a></div>
               </div>
             </div>
           </div>
@@ -142,21 +142,27 @@
         </div>
       </div>
     </div>
-    <div class="modal"> 
+    <div class="modal">
       <div class="title">Заказы</div>
       <button class="close" onclick="modal()"><span></span></button>
 
-        <div id="order-list">
+
+        <form method="post">
+            {% csrf_token %}
+            <div id="order-list">
         </div>
 
-      <div class="total"> 
+      <div class="total">
         <div class="title">Итого:</div>
-        <div class="cost">23,500 <span>UZS</span></div>
+          <div class="cost" id="total_price" data-id="0">0 <span>UZS</span></div>
       </div>
       <div class="buttons">
-        <button class="clear"><a href="{% url 'index' %}"> Очистить</a></button>
-        <button class="order"><a href="{% url 'order' %}"> Заказать</a></button>
+        <button class="clear" onclick="delete_orders()"> Очистить</button>
+        <button class="order" type="submit"><a href="{% url 'order' %}"> Заказать</a></button>
       </div>
+        </form>
+
+
     </div>
     <div class="content"> 
       <div class="container"> 
@@ -383,20 +389,40 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script src="{% static 'fronted/js/app.js' %}"> </script>
 <script>
+
   function add_product_to_order(product_id){
     orders = document.getElementById("order-list");
+    total_price = document.getElementById("total_price");
+    index_price = document.getElementById("index_price");
     $.ajax({
             type: 'GET',
             url: "{% url 'index' %}",
             data: {"product_id": product_id},
             success: function (response) {
-                orders.innerHTML += '<div class="row"><div class="col-12"><div class="item"><div class="box"><div class="box__img"> <img class="img" src="/media/'+ response["image"] +'" alt=""></div><div class="box__content"><div class="box__title">'+ response["name"] +'</div><div class="box__text">'+ response["description"] +'</div><div class="box__const"><div class="box__cost">'+ response["price"] +' UZS</div></div></div></div></div></div></div>';
+                new_price = parseInt(response["price"]) + parseInt(total_price.getAttribute("data-id"))
+                total_price.setAttribute("data-id", new_price)
+                total_price.innerHTML = new_price + " <span> UZS</span>"
+                index_price.innerHTML = new_price + " <span> UZS</span>"
+                orders.innerHTML += '<div class="row"><input type="hidden" name="product" value="' + response["id"] + '"><div class="col-12"><div class="item"><div class="box"><div class="box__img"> <img class="img" src="/media/'+ response["image"] +'" alt=""></div><div class="box__content"><div class="box__title">'+ response["name"] +'</div><div class="box__text">'+ response["description"] +'</div><div class="box__const"><div class="box__cost">'+ response["price"] +' UZS</div></div></div></div></div></div></div>';
             },
             error: function (response) {
                 console.log(response)
             }
         })
   }
+  function delete_orders(){
+      orders = document.getElementById("order-list");
+      total_price = document.getElementById("total_price");
+      index_price = document.getElementById("index_price");
+
+      orders.innerHTML = "";
+      total_price.innerHTML = "0 <span> UZS</span>";
+      index_price.innerHTML = "0 <span> UZS</span>";
+
+      total_price.setAttribute("data-id", 0);
+
+  }
+
 </script>
   </body>
 </html>
