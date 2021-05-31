@@ -99,7 +99,7 @@
               <div class="shop">
                 <button class="shop--icon" onclick="modal()">
                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 7V5C4 2.23858 6.23858 0 9 0C11.7614 0 14 2.23858 14 5V7H17C17.5523 7 18 7.44772 18 8V20C18 20.5523 17.5523 21 17 21H1C0.447715 21 0 20.5523 0 20V8C0 7.44772 0.447715 7 1 7H4ZM4 9H2V19H16V9H14V11H12V9H6V11H4V9ZM12 5V7H6V5C6 3.34315 7.34315 2 9 2C10.6569 2 12 3.34315 12 5Z" fill="#F1B301"/></svg></button>
-                <div class="shop--text">  <a href="#" onclick="modal()"> Korzina<br><span class="shopSpan">5000<span>UZS</span></span></a></div>
+                <div class="shop--text">  <a href="#" onclick="modal()"> Korzina<br><span class="shopSpan">{{order.total_price}}<span>UZS</span></span></a></div>
               </div>
             </div>
           </div>
@@ -110,19 +110,17 @@
         <div class="account">
 
 
-          <form method="post">
+            <form method="post">
           {% csrf_token %}
+                <input type="hidden" value="{{ order.id }}" name="order">
         <div class="phone">
             <p> ВЕРИФИКАЦИЯ ТЕЛЕФОНА*</p><br>
-            {{form.phone}}
-<!--                <input class="input" name="phone_number" type="text" placeholder="Ваш номер">-->
+                <input class="input" name="phone" type="text" placeholder="Ваш номер">
         </div>
         <div class="contact">
             <p>КОНТАКТНАЯ ИНФОРМАЦИЯ</p><br>
-            {{form.first_name}}
-            {{form.last_name}}
-<!--            <input class="input" name="first_name" type="text" placeholder="Имя*">-->
-<!--            <input class="input" name="last_name" type="text" placeholder="Фамилия*">-->
+            <input class="input" name="first_name" type="text" placeholder="Имя*">
+            <input class="input" name="last_name" type="text" placeholder="Фамилия*">
         </div>
         <div class="all">
             <div class="card">
@@ -130,7 +128,7 @@
                 <div class="sum">
                     <h2> Наличный расчет </h2>
                     <h4>Оплата принимается в узбекских сумах в наших магазинах или курьеру при получении товара.</h4>
-                    <input class="radio"  id="1" value="Наличный" type="checkbox">
+                    <input class="radio"  id="1" value="1" name="price_type" type="radio">
                 </div>
             </div>
             <div class="card">
@@ -138,21 +136,18 @@
                 <div class="sum">
                     <h2>  Оплата по терминалу  </h2>
                     <h4>Оплата принимается через банковские карты UzCard.</h4>
-                    <input class="radio"  id="2" value="терминал" type="checkbox">
+                    <input class="radio"  id="1" value="2" name="price_type" type="radio">
                 </div>
             </div>
         </div>
         <div class="div">
             <p>«Адрес, Ориентир»*</p>
-            {{form.address}}
-<!--            <textarea class="text" name="address" id="" cols="30" rows="10"></textarea>-->
+            <textarea class="text" name="address" id="" cols="30" rows="10"></textarea>
         </div>
-        <div class="button">
-            <a href="#">Отправить</a>
-        </div>
-        </form>
-
-
+        <button class="button" type="submit">Отправить</button>
+            </form>
         </div>
     </div>
     </div>
+  </body>
+</html>

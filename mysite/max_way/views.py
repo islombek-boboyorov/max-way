@@ -17,10 +17,16 @@ def index(request):
         for p in products:
             c = servise.get_product_price(int(p))["price"]
             b += c
-        model.total_price = b
-        model.save()
+        if b != 0:
+            model.total_price = b
+            model.save()
+        else:
+            return redirect('index')
+
         for p in products:
             model.products.add(Product.objects.get(pk=int(p)))
+        print(model.pk)
+        return redirect("order", order_id=model.pk)
 
     categories = servise.get_category()
     products = servise.get_product()
@@ -31,19 +37,17 @@ def index(request):
     return render(request, 'fronted/index.html', ctx)
 
 
-def order(request):
-    # count = servise.get_order_max_id()['max']
-    model = User.objects.all()
+def order(request, order_id):
+    model = User()
     form = UserForm(request.POST, instance=model)
-    print("A")
+    order = Order.objects.get(pk=order_id)
     if request.POST:
-        print(request.POST)
         if form.is_valid():
             form.save()
             return redirect('index')
         else:
             print(form.errors)
     ctx = {
-        "form": form
+        "order": order
     }
     return render(request, 'fronted/order.html', ctx)
