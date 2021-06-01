@@ -14,6 +14,13 @@ class OrderForm(forms.ModelForm):
         fields = "__all__"
 
 
+class OrdForm(forms.ModelForm):
+    class Meta:
+        model = Order()
+        fields = ('status',)
+
+
+
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category()

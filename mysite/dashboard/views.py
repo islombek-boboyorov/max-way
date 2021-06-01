@@ -7,14 +7,45 @@ from .forms import *
 from max_way.models import *
 
 
-
 def login_required_decorator(f):
     return login_required(f, login_url="login")
 
 
 @login_required_decorator
 def dashboard_page(request):
-    return render(request, 'dashboard/index.html')
+    count_cat = servise.get_category_count()['name']
+    count_prod = servise.get_product_count()['title']
+    categories = servise.news_count()
+    status = servise.get_status_info()
+    stat_1 = servise.get_status_1()[0]
+    print(stat_1)
+    stat_2 = servise.get_status_2()[0]
+    stat_3 = servise.get_status_3()[0]
+    ctx = {
+        "count_cat": count_cat,
+        "count_prod": count_prod,
+        "categories": categories,
+        "status": status,
+        "stat_1": stat_1,
+        "stat_2": stat_2,
+        "stat_3": stat_3,
+    }
+    return render(request, 'dashboard/index.html', ctx)
+
+
+def status(request, pk):
+    model = Order.objects.get(id=pk)
+    form = OrderForm(request.POST or None, instance=model)
+    if request.POST:
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+        else:
+            print(form.errors)
+    ctx = {
+        "form": form,
+    }
+    return render(request, 'dashboard/form.html', ctx)
 
 
 def dashboard_login(request):
@@ -75,50 +106,6 @@ def user_delete(request, pk):
     model = User.objects.get(id=pk)
     model.delete()
     return redirect('user_list')
-
-
-def order_list(request):
-    orders = servise.get_order()
-    ctx = {
-        "orders": orders
-    }
-    return render(request, 'dashboard/order/list.html', ctx)
-
-
-def order_create(request):
-    model = Order()
-    form = OrderForm(request.POST, instance=model)
-    if request.POST:
-        if form.is_valid():
-            form.save()
-            return redirect('order_list')
-        else:
-            print(form.errors)
-    ctx = {
-        "form": form
-    }
-    return render(request, 'dashboard/order/form.html', ctx)
-
-
-def order_edit(request, pk):
-    model = Order.objects.get(id=pk)
-    form = OrderForm(request.POST or None, instance=model)
-    if request.POST:
-        if form.is_valid():
-            form.save()
-            return redirect('order_list')
-        else:
-            print(form.errors)
-    ctx = {
-        "form": form
-    }
-    return render(request, 'dashboard/order/form.html', ctx)
-
-
-def order_delete(pk):
-    model = Order.objects.get(id=pk)
-    model.delete()
-    return redirect('order_list')
 
 
 def category_list(request):

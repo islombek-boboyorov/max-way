@@ -25,7 +25,6 @@ def index(request):
 
         for p in products:
             model.products.add(Product.objects.get(pk=int(p)))
-        print(model.pk)
         return redirect("order", order_id=model.pk)
 
     categories = servise.get_category()
