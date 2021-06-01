@@ -2,18 +2,19 @@ from django.db import connection
 from contextlib import closing
 
 
-def get_status_info():
+def get_status_info(status):
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select max_way_user.*, max_way_order.status as status
+        cursor.execute(f"""select max_way_user.*, max_way_order.status as status
             from max_way_user left join max_way_order 
-            on max_way_user.order_id =max_way_order.id""")
+            on max_way_user.order_id = max_way_order.id where status in ({str(status).strip("[]")}) """
+                       )
         status = dict_fetchall(cursor)
     return status
 
 
 def get_status_1():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select count(status) from max_way_order where status = 1""")
+        cursor.execute("""select count(status) as count from max_way_order where status = 1""")
         status = dict_fetchall(cursor)
     return status
 
@@ -29,22 +30,6 @@ def get_status_3():
     with closing(connection.cursor()) as cursor:
         cursor.execute("""select count(status) from max_way_order where status = 3""")
         status = dict_fetchall(cursor)
-    return status
-
-
-def get_order_by_id(pk):
-    with closing(connection.cursor()) as cursor:
-        cursor.execute("""select * from  max_way_order 
-                 where id = %s""", [pk])
-        status = dict_fetchone(cursor)
-    return status
-
-
-def get_category_by_id(pk):
-    with closing(connection.cursor()) as cursor:
-        cursor.execute("""select * from  max_way_category 
-                 where id = %s""", [pk])
-        status = dict_fetchone(cursor)
     return status
 
 
