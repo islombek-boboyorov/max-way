@@ -22,9 +22,9 @@ def dashboard_page(request):
     status_3 = servise.get_status_3()[0]['count']
 
     bar_status = {
-        "order": status_1,
-        "done": status_2,
-        "failed": status_3,
+        "Order": status_1,
+        "Done": status_2,
+        "Failed": status_3,
     }
 
     ctx = {

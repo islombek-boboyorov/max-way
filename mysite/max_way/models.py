@@ -24,7 +24,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    products = models.ManyToManyField(Product)
+    products = models.JSONField(blank=False, null=False)
     status = models.IntegerField(blank=False, null=False, default=1)
     total_price = models.IntegerField(blank=False, null=False, default=0)
     created_at = models.DateTimeField(auto_now_add=True)

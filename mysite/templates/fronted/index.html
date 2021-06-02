@@ -108,7 +108,6 @@
         <div class="header__content"> 
           <div class="header__content--decs">
             <div class="header__content--title">Siz izlagan mazzali ta’mlar</div>
-            <div class="header__content--text">When an unknown printer took a galley of type scrambled it to make a type specimen </div>
           </div>
           <div class="header__content--img"> <img src="{% static 'fronted/img/bitmap.png' %}" alt=""></div>
         </div>
@@ -143,23 +142,40 @@
       </div>
     </div>
     <div class="modal">
-      <div class="title">Заказы</div>
-      <button class="close" onclick="modal()"><span></span></button>
-
-
-        <form method="post">
+              <div class="title">Заказы</div>
+              <button class="close" onclick="modal()"><span></span></button>
+        <form method="post" action="{% url 'order-save' %}">
             {% csrf_token %}
-            <div id="order-list">
-        </div>
-
-      <div class="total">
-        <div class="title">Итого:</div>
-          <div class="cost" id="total_price" data-id="0">0 <span>UZS</span></div>
-      </div>
-      <div class="buttons">
-        <button class="clear" onclick="delete_orders()"> Очистить</button>
-        <button class="order" type="submit">Заказать</button>
-      </div>
+                    <div id="order-list">
+                        {% if orders %}
+                        {% for order in orders %}
+                            <div class="row">
+                                <div class="col-12">
+                                  <div class="item">
+                                    <div class="box">
+                                      <div class="box__img"> <img class="img" src="/media/{{ order.product.image }}" alt=""></div>
+                                      <div class="box__content">
+                                        <div class="box__title"> {{ order.product.name }}</div>
+                                        <div class="box__text"> {{ order.product.description }}</div>
+                                        <div class="box__const">
+                                          <div class="box__cost"> {{ order.count }} x {{ order.product.price }} UZS</div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        {% endfor %}
+            {% endif %}
+                    </div>
+                     <div class="total">
+                <div class="title">Итого:</div>
+                <div class="cost" id="total_price" data-id="0">0<span>UZS</span></div>
+              </div>
+                  <div class="buttons">
+                    <button class="clear" onclick="delete_orders()"> Очистить</button>
+                    <button class="order" type="submit">Заказать</button>
+                  </div>
         </form>
 
 
@@ -389,28 +405,66 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script src="{% static 'fronted/js/app.js' %}"> </script>
 <script>
-
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
   function add_product_to_order(product_id){
-    orders = document.getElementById("order-list");
+    orders_list = document.getElementById("order-list");
     total_price = document.getElementById("total_price");
     index_price = document.getElementById("index_price");
-    $.ajax({
+
+    orders = JSON.parse(getCookie("orders"));
+    console.log(typeof orders);
+    if (orders == null || (typeof orders) == "string"){
+        orders = {}
+    }
+    if (product_id + "" in orders){
+        orders[product_id + ""] = orders[product_id + ""] + 1
+    }
+    else{
+        orders[product_id + ""] = 1
+    }
+    orders_list.innerHTML = "";
+
+    document.cookie = "total_price=0;"
+
+    for (const key in orders){
+      if(orders.hasOwnProperty(key)){
+            $.ajax({
             type: 'GET',
             url: "{% url 'index' %}",
-            data: {"product_id": product_id},
+            data: {"product_id": parseInt(key)},
             success: function (response) {
-                new_price = parseInt(response["price"]) + parseInt(total_price.getAttribute("data-id"))
-                total_price.setAttribute("data-id", new_price)
-                total_price.innerHTML = new_price + " <span> UZS</span>"
-                index_price.innerHTML = new_price + " <span> UZS</span>"
-                orders.innerHTML += '<div class="row"><input type="hidden" name="product" value="' + response["id"] + '"><div class="col-12"><div class="item"><div class="box"><div class="box__img"> <img class="img" src="/media/'+ response["image"] +'" alt=""></div><div class="box__content"><div class="box__title">'+ response["name"] +'</div><div class="box__text">'+ response["description"] +'</div><div class="box__const"><div class="box__cost">'+ response["price"] +' UZS</div></div></div></div></div></div></div>';
+                price = parseInt(getCookie("total_price")) + parseInt(response["price"]) * parseInt(orders[key])
+
+                document.cookie = "total_price=" + price + ";"
+
+                total_price.innerHTML = price + " <span> UZS</span>"
+                index_price.innerHTML = price + " <span> UZS</span>"
+                orders_list.innerHTML += '<div class="row"><div class="col-12"><div class="item"><div class="box"><div class="box__img"> <img class="img" src="/media/'+ response["image"] +'" alt=""></div><div class="box__content"><div class="box__title">'+ response["name"] +'</div><div class="box__text">'+ response["description"] +'</div><div class="box__const"><div class="box__cost">' + orders[key] + ' x ' + response["price"] +' UZS</div></div></div></div></div></div></div>';
+
             },
             error: function (response) {
                 console.log(response)
             }
         })
+
+      }
+    }
+
+    document.cookie = "orders=" + JSON.stringify(orders) + ";"
   }
+
   function delete_orders(){
+      document.cookie = "orders=" + JSON.stringify({}) + ";"
+      document.cookie = "total_price=0;"
       orders = document.getElementById("order-list");
       total_price = document.getElementById("total_price");
       index_price = document.getElementById("index_price");
@@ -422,7 +476,6 @@
       total_price.setAttribute("data-id", 0);
 
   }
-
 </script>
   </body>
 </html>
