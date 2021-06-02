@@ -5,7 +5,7 @@ from contextlib import closing
 def get_product_by_id(product_id):
     with closing(connection.cursor()) as cursor:
         cursor.execute("""
-        select id, title as name, description, image, price from max_way_product where id = %s""",
+        select id, title as name, description, image, price from product where id = %s""",
                        [product_id])
         product = dict_fetchone(cursor)
     return product
@@ -13,28 +13,28 @@ def get_product_by_id(product_id):
 
 def get_order_max_id():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select max(id) from max_way_order""")
+        cursor.execute("""select max(id) from order""")
         order_id = dict_fetchone(cursor)
     return order_id
 
 
 def get_product():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select * from max_way_product""")
+        cursor.execute("""select * from product""")
         products = dict_fetchall(cursor)
     return products
 
 
 def get_product_price(pk):
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select price from max_way_product where id = %s""", [pk])
+        cursor.execute("""select price from product where id = %s""", [pk])
         price = dict_fetchone(cursor)
     return price
 
 
 def get_category():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select * from max_way_category  """)
+        cursor.execute("""select * from category  """)
         categories = dict_fetchall(cursor)
     return categories
 

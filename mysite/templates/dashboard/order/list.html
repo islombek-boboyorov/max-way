@@ -40,7 +40,6 @@
                   </thead>
                   <tbody>
                     {% for stat in status %}
-                    {% if forloop.counter0 < 8 %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
                       <td>{{ stat.first_name }}</td>
@@ -57,7 +56,6 @@
                         {% endif %}
                       </td>
                     </tr>
-                    {% endif %}
                     {% endfor %}
                   </tbody>
                 </table>

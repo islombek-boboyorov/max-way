@@ -11,14 +11,6 @@ def index(request):
         product = servise.get_product_by_id(request.GET.get("product_id", 0))
         return JsonResponse(product)
 
-    # if request.POST:
-    #     products = request.POST.getlist("product")
-    #     model = Order()
-    #     for p in products:
-    #         model.products.add(Product.objects.get(pk=int(p)))
-    #
-    #     return redirect("order", order_id=model.pk)
-
     orders = []
     orders_list = request.COOKIES.get("orders")
     if orders_list:
@@ -41,20 +33,33 @@ def index(request):
 
 
 def order_save(request):
+    new_order = Order()
     if request.POST:
-        new_order = Order()
         new_order.total_price = request.COOKIES.get("total_price", 0)
         new_order.products = request.COOKIES.get("orders", {})
         new_order.status = 1
         new_order.created_at = datetime.now()
         new_order.save()
 
-    response = redirect("order")
+    response = redirect("order", order_id=new_order.pk)
     response.set_cookie("total_price", 0)
     response.set_cookie("orders", dict())
 
     return response
 
 
-def order(request):
-    return render(request, 'fronted/order.html')
+def order(request, order_id):
+    model = User()
+    form = UserForm(request.POST, instance=model)
+    order = Order.objects.get(pk=order_id)
+    print(order.id)
+    if request.POST:
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        else:
+            print(form.errors)
+    ctx = {
+        "order": order
+    }
+    return render(request, 'fronted/order.html', ctx)

@@ -4,9 +4,9 @@ from contextlib import closing
 
 def get_status_info(status):
     with closing(connection.cursor()) as cursor:
-        cursor.execute(f"""select max_way_user.*, max_way_order.status as status
-            from max_way_user left join max_way_order 
-            on max_way_user.order_id = max_way_order.id where status in ({str(status).strip("[]")}) """
+        cursor.execute(f"""select "user".*, "order".status as status
+            from "user" left join "order" 
+            on "user".order_id = "order".id where status in ({str(status).strip("[]")}) """
                        )
         status = dict_fetchall(cursor)
     return status
@@ -14,28 +14,28 @@ def get_status_info(status):
 
 def get_status_1():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select count(status) as count from max_way_order where status = 1""")
+        cursor.execute("""select count(status) as count from "order" where status = 1""")
         status = dict_fetchall(cursor)
     return status
 
 
 def get_status_2():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select count(status) from max_way_order where status = 2""")
+        cursor.execute("""select count(status) from "order" where status = 2""")
         status = dict_fetchall(cursor)
     return status
 
 
 def get_status_3():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select count(status) from max_way_order where status = 3""")
+        cursor.execute("""select count(status) from "order" where status = 3""")
         status = dict_fetchall(cursor)
     return status
 
 
 def get_category_count():
     with closing(connection.cursor()) as cur:
-        cur.execute("""select count(name) as name from max_way_category """)
+        cur.execute("""select count(name) as name from "category" """)
         count_cat = dict_fetchone(cur)
     return count_cat
 
@@ -43,7 +43,7 @@ def get_category_count():
 def news_count():
     with closing(connection.cursor()) as cursor:
         cursor.execute("""select name, count(title) as news_count from 
-            max_way_category left join max_way_product on max_way_category.id=max_way_product.category_id
+            "category" left join "product" on "category".id="product".category_id
              group by name""")
         news = dict_fetchall(cursor)
     return news
@@ -51,35 +51,35 @@ def news_count():
 
 def get_product_count():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select count(title) as title from max_way_product""")
+        cursor.execute("""select count(title) as title from "product" """)
         count_prod = dict_fetchone(cursor)
     return count_prod
 
 
 def get_user():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select * from max_way_user""")
+        cursor.execute("""select * from "user" """)
         users = dict_fetchall(cursor)
         return users
 
 
 def get_order():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select * from max_way_order""")
+        cursor.execute("""select * from "order" """)
         orders = dict_fetchall(cursor)
     return orders
 
 
 def get_category():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select * from max_way_category""")
+        cursor.execute("""select * from "category" """)
         categories = dict_fetchall(cursor)
     return categories
 
 
 def get_product():
     with closing(connection.cursor()) as cursor:
-        cursor.execute("""select * from max_way_product""")
+        cursor.execute("""select * from "product" """)
         products = dict_fetchall(cursor)
     return products
 

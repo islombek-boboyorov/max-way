@@ -9,6 +9,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = "category"
+
 
 class Product(models.Model):
     title = models.CharField(max_length=128, blank=False, null=False)
@@ -22,12 +25,18 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        db_table = "product"
+
 
 class Order(models.Model):
     products = models.JSONField(blank=False, null=False)
     status = models.IntegerField(blank=False, null=False, default=1)
     total_price = models.IntegerField(blank=False, null=False, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "order"
 
 
 class User(models.Model):
@@ -42,3 +51,5 @@ class User(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    class Meta:
+        db_table = "user"
