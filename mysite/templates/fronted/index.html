@@ -68,7 +68,7 @@
     <div class="header">
       <div class="container"> 
         <div class="menu"> 
-          <div class="logo"><a href="index.html">
+          <div class="logo"><a href="{% url 'index' %}">
                <svg width="52" height="55" viewBox="0 0 52 55" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M31.8607 53.4586C31.8607 53.3384 31.9744 53.2477 32.0913 53.2477H32.2117L32.3453 52.7C32.3754 52.5959 32.4622 52.543 32.5759 52.543C32.6795 52.553 32.7798 52.6396 32.7763 52.7462C32.7763 52.753 32.7763 52.7731 32.7696 52.7899L32.6593 53.2477H32.8131L32.9468 52.7C32.9768 52.5959 33.0637 52.543 33.1774 52.543C33.2909 52.553 33.3846 52.6429 33.3778 52.753C33.3778 52.763 33.3746 52.7765 33.3711 52.7899L33.2608 53.2477C33.3746 53.2511 33.4849 53.3418 33.4849 53.4586C33.4849 53.5787 33.3846 53.6719 33.2542 53.6719H33.1607L33.1272 53.7996H33.154C33.2709 53.7996 33.3846 53.8928 33.3846 54.013C33.3846 54.1331 33.2843 54.2272 33.154 54.2272H33.027L32.8933 54.7816C32.8632 54.8849 32.7763 54.9386 32.6627 54.9386C32.5491 54.9319 32.4588 54.842 32.4588 54.7312L32.4656 54.7018L32.5792 54.2272H32.4255L32.2917 54.7816C32.2616 54.8849 32.1748 54.9386 32.0612 54.9386C31.9542 54.9286 31.8574 54.842 31.8574 54.7312L31.864 54.7018L31.9776 54.2272C31.8541 54.2204 31.7605 54.1297 31.7605 54.013C31.7605 53.8928 31.8741 53.7996 31.991 53.7996H32.0779L32.1113 53.6719H32.0913C31.9609 53.6719 31.8607 53.5787 31.8607 53.4586ZM32.7128 53.6719H32.5592L32.5257 53.7996H32.6795L32.7128 53.6719Z" fill="#800A7A"/>
 <path d="M34.2733 53.9498H34.905C35.0352 53.9498 35.1355 53.8557 35.1355 53.7356C35.1355 53.6155 35.0219 53.5247 34.905 53.5247H34.2733V52.9838H34.9683C35.0953 52.9838 35.2023 52.8973 35.2023 52.7763C35.2023 52.6595 35.0953 52.5596 34.9683 52.5596H34.0628C33.9157 52.5596 33.8054 52.6797 33.8054 52.7965V54.7352C33.8054 54.8486 33.9091 54.9485 34.0394 54.9485C34.1665 54.9485 34.2733 54.8486 34.2733 54.7352V53.9498Z" fill="#800A7A"/>
@@ -100,7 +100,7 @@
               <div class="shop">
                 <button class="shop--icon" onclick="modal()">
                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 7V5C4 2.23858 6.23858 0 9 0C11.7614 0 14 2.23858 14 5V7H17C17.5523 7 18 7.44772 18 8V20C18 20.5523 17.5523 21 17 21H1C0.447715 21 0 20.5523 0 20V8C0 7.44772 0.447715 7 1 7H4ZM4 9H2V19H16V9H14V11H12V9H6V11H4V9ZM12 5V7H6V5C6 3.34315 7.34315 2 9 2C10.6569 2 12 3.34315 12 5Z" fill="#F1B301"/></svg></button>
-                <div class="shop--text">  <a href="#" onclick="modal()"> Korzina<br><span class="shopSpan" id="index_price">0 <span>UZS</span></span></a></div>
+                <div class="shop--text">  <a  onclick="modal()"> Korzina<br><span class="shopSpan" id="index_price">0 <span>UZS</span></span></a></div>
               </div>
             </div>
           </div>
@@ -173,7 +173,7 @@
                 <div class="cost" id="total_price" data-id="0">0<span>UZS</span></div>
               </div>
                   <div class="buttons">
-                      <button class="clear" onclick="delete_orders()"> Очистить</button>
+                      <button class="clear" type="button" onclick="delete_orders()"> Очистить</button>
                       <button class="order" type="submit">Заказать</button>
                   </div>
         </form>
@@ -421,7 +421,6 @@
     index_price = document.getElementById("index_price");
 
     orders = JSON.parse(getCookie("orders"));
-    console.log(typeof orders);
     if (orders == null || (typeof orders) == "string"){
         orders = {}
     }

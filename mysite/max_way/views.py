@@ -33,19 +33,21 @@ def index(request):
 
 
 def order_save(request):
-    new_order = Order()
-    if request.POST:
+    if request.POST and int(request.COOKIES.get("total_price", 0)):
+        new_order = Order()
         new_order.total_price = request.COOKIES.get("total_price", 0)
         new_order.products = request.COOKIES.get("orders", {})
         new_order.status = 1
         new_order.created_at = datetime.now()
         new_order.save()
 
-    response = redirect("order", order_id=new_order.pk)
-    response.set_cookie("total_price", 0)
-    response.set_cookie("orders", dict())
+        response = redirect("order", order_id=new_order.pk)
+        response.set_cookie("total_price", 0)
+        response.set_cookie("orders", dict())
 
-    return response
+        return response
+    else:
+        return redirect('index')
 
 
 def order(request, order_id):
