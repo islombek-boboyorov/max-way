@@ -1,10 +1,10 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from . import servise
 from .forms import *
 from max_way.models import *
+import json
 
 
 def login_required_decorator(f):
@@ -13,6 +13,10 @@ def login_required_decorator(f):
 
 @login_required_decorator
 def dashboard_page(request):
+    ord = servise.get_order()
+    jpo = json.loads(ord[85]['products'])
+    for k in jpo:
+        print(k)
     status = servise.get_status_info([1, 2, 3])
     count_cat = servise.get_category_count()['name']
     count_prod = servise.get_product_count()['title']
