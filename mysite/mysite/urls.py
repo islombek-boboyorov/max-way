@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', include('dashboard.urls')),
     path('', include('max_way.urls'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+  ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

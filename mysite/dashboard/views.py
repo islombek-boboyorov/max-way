@@ -13,10 +13,10 @@ def login_required_decorator(f):
 
 @login_required_decorator
 def dashboard_page(request):
-    ord = servise.get_order()
-    jpo = json.loads(ord[85]['products'])
-    for k in jpo:
-        print(k)
+    # ord = servise.get_order()
+    # jpo = json.loads(ord[85]['products'])
+    # for k in jpo:
+    #     print(k)
     status = servise.get_status_info([1, 2, 3])
     count_cat = servise.get_category_count()['name']
     count_prod = servise.get_product_count()['title']

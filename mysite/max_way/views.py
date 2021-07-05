@@ -54,7 +54,6 @@ def order(request, order_id):
     model = User()
     form = UserForm(request.POST, instance=model)
     order = Order.objects.get(pk=order_id)
-    print(order.id)
     if request.POST:
         if form.is_valid():
             form.save()

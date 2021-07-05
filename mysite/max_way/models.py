@@ -33,6 +33,7 @@ class Order(models.Model):
     products = models.JSONField(blank=False, null=False)
     status = models.IntegerField(blank=False, null=False, default=1)
     total_price = models.IntegerField(blank=False, null=False, default=0)
+    chat_id = models.IntegerField(default=0, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -53,3 +54,17 @@ class User(models.Model):
 
     class Meta:
         db_table = "user"
+
+
+class Bot_user(models.Model):
+    chat_id = models.IntegerField(blank=False, null=True, default=0)
+    first_name = models.CharField(max_length=120, blank=False, null=True)
+    last_name = models.CharField(max_length=120, blank=False, null=True)
+    contact = models.CharField(max_length=120, blank=False, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.first_name
+
+    class Meta:
+        db_table = "bot_user"
